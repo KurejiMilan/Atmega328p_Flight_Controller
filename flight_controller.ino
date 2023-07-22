@@ -26,7 +26,7 @@ uint32_t current_micro = 0;                                                     
 /* Variables used for PID calculation*/
 uint32_t current_loop_micro, prev_loop_micro, loop_time = 0;                                                         // these are used for PID calculation
 
-float pRoll = 0, pPitch = pRoll, pYaw = 0;                                                                // defining PID gains for Roll, Pitch and Yaw
+float pRoll = 2, pPitch = pRoll, pYaw = 0;                                                                // defining PID gains for Roll, Pitch and Yaw
 float iRoll = 0, iPitch = iRoll, iYaw = 0;
 float dRoll = 0, dPitch = dRoll, dYaw = 0;
 
@@ -124,9 +124,9 @@ void setup() {
 
 void loop() {
   gyro_signals();
-  setRoll = 0.15*(roll_con-1500);
-  setPitch = 0.15*(pitch_con-1500);
-  setYaw = 0.15*(yaw_con-1500);
+  setRoll = 0.15*((float)roll_con-1500.0);
+  setPitch = 0.15*((float)pitch_con-1500.0);
+  setYaw = 0.15*((float)yaw_con-1500.0);
   throttle_input = throttle_con;
   
   rollError = setRoll - RateRoll;
@@ -169,8 +169,8 @@ void loop() {
   if (motor4_output > 2000) motor4_output = 2000; else if(motor4_output<1180) motor4_output = 1180;
 
   #ifdef MOTOR_DEBUG
-    Serial.print("throttle =");
-    Serial.println(throttle_input);
+    Serial.print("Yaw =");
+    Serial.println(setYaw);
     /*
     Serial.print("Motor 1=");
     Serial.print(motor1_output);
